@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<h1>inscripcion para el curso de computacion</h1>
+<body >
+  <form id="Form"><br>
+    <label for="name">INGRESA TU NOMBRE</label>
+    <input type="text" id="name" required>
+<br><br>
+    <label for="cp">INGRESA CODIGO POSTAL</label>
+    <input type="text" id="cp" required>
+    <div class="error" id="errorCP"></div>
+<br>
+    <label for="tl">Telefono (10 dígitos)</label>
+    <input type="tel" id="tl" required>
+    <div class="error" id="errorTL"></div>
+<br>
+    <label for="curp">INGRESA TU CURP (18 dígitos)</label>
+    <input type="text" id="curp" required>
+    <div class="error" id="errorCURP"></div>
+<br>
+    <input type="submit" value="ENVIAR">
+  </form>
+  <script>
+    const form = document.getElementById('Form');
+    const cpInput = document.getElementById('cp');
+    const errorCP = document.getElementById('errorCP');
+    const tlInput = document.getElementById('tl');
+    const curpInput = document.getElementById('curp');
+    const errorTL = document.getElementById('errorTL');
+    const errorCURP = document.getElementById('errorCURP');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      let isValid = true;
+
+      if (cpInput.value.length !== 5) {
+        errorCP.textContent = 'El codigo postal debe contener 5 digitos';
+        isValid = false;
+      } else {
+        errorCP.textContent = '';
+      }
+
+      if (tlInput.value.length !== 10) {
+        errorTL.textContent = 'El número de teléfono debe tener 10 dígitos.';
+        isValid = false;
+      } else {
+        errorTL.textContent = '';
+      }
+
+      if (curpInput.value.length !== 18) {
+        errorCURP.textContent = 'El CURP debe tener 18 caracteres.';
+        isValid = false;
+      } else {
+        errorCURP.textContent = '';
+      }
+
+      if (!isValid) {
+        if (errorTL.textContent) {
+          tlInput.focus();
+        } else {
+          curpInput.focus();
+        }
+        return;
+      }
+
+
+      const name = document.getElementById('name').value;
+      const cp = cpInput.value;
+      const tl = tlInput.value;
+      const curp = curpInput.value;
+
+      alert(`Los datos se han enviado correctamente:
+
+      Nombre: ${name}
+      Código Postal: ${cp}
+      Teléfono: ${tl}
+      CURP: ${curp}`);
+    });
+  </script>
+</body>
+</html>
